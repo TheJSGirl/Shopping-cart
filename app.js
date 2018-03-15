@@ -8,6 +8,7 @@ const expressHbs = require('express-handlebars');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const mongoose = require('mongoose');
 
 const app = express();
 
