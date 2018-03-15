@@ -12,6 +12,8 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+//mongoose connection
+mongoose.connect('localhost:27017/shopping');
 // view engine setup
 app.engine('.hbs', expressHbs({ defaultLayout: 'layout', extname: '.hbs' }));
 app.set('view engine', '.hbs');
