@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHbs = require('express-handlebars');
+const session = require('express-session');
 // require('./models/product');
 // const port = 4040;
 
@@ -25,6 +26,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'mysecret', resave: false, saveUninitialized: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -38,15 +40,15 @@ app.use('/users', users);
 // });
 
 // error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use((err, req, res) => {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 console.log('here');
 // app.listen(port, () => {
 //   console.log('listening at port', port);

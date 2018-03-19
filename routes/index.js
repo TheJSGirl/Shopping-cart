@@ -2,7 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 const Product = require('../models/product');
+const csrf = require('csurf');
 
+const csrfProtection = csrf();
+
+router.use(csrfProtection);
 /* GET home page. */
 router.get('/', (req, res, next) => {
   // Product.find((err, docs) =>
@@ -19,5 +23,6 @@ router.get('/', (req, res, next) => {
   res.render('shop/index', { title: 'Shopping Cart', products });
 });
 // });
+router.get('/user/signup', (req, res) => res.render('user/signup', { csrfToken: req.csrfToken() }));
 
 module.exports = router;
