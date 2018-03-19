@@ -11,11 +11,15 @@ const session = require('express-session');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const passport = require('passport');
+const flash = require('connect-flash');
+const mongoose = require('mongoose');
 
 const app = express();
 
 // mongoose connection
-// mongoose.connect('localhost:27017/shopping');
+mongoose.connect('mongodb://localhost:/shopping');
+require('./config/passport');
 // view engine setup
 app.engine('.hbs', expressHbs({ defaultLayout: 'layout', extname: '.hbs' }));
 app.set('view engine', '.hbs');
@@ -27,6 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'mysecret', resave: false, saveUninitialized: false }));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);

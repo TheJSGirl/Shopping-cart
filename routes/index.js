@@ -1,8 +1,9 @@
 const express = require('express');
 
 const router = express.Router();
-const Product = require('../models/product');
 const csrf = require('csurf');
+const passport = require('passport');
+const Product = require('../models/product');
 
 const csrfProtection = csrf();
 
@@ -24,8 +25,17 @@ router.get('/', (req, res, next) => {
 });
 // });
 router.get('/user/signup', (req, res) => res.render('user/signup', { csrfToken: req.csrfToken() }));
-router.post('/user/signup', (req, res) => {
-  res.redirect('/');
+router.post(
+  '/user/signup',
+  passport.authenticate('local.signup', {
+    successRedirect: '/user/profile',
+    failureRedirect: '/user/signup',
+    failureFlash: true,
+  }),
+);
+
+router.get('/user/profile', (req, res) => {
+  res.render('user/profile');
 });
 
 module.exports = router;
