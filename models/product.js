@@ -22,8 +22,8 @@ const ProductSchema = new Schema({
 });
 
 const product = mongoose.model('Product', ProductSchema);
-product.insertMany({
-  title: 'Google',
-  imagePath: 'www.google.com',
-});
+// product.insertMany({
+//   title: 'Google',
+//   imagePath: 'www.google.com',
+// });
 module.exports = product;
