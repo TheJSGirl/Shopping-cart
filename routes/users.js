@@ -1,4 +1,5 @@
 const express = require('express');
+const { isLogedIn } = require('../utils/isLogedIn');
 
 const router = express.Router();
 const csrf = require('csurf');
@@ -25,10 +26,6 @@ router.post(
   }),
 );
 
-router.get('/profile', (req, res) => {
-  res.render('user/profile');
-});
-
 router.get('/signin', (req, res) => {
   const messages = req.flash('error');
   res.render('user/signin', {
@@ -46,5 +43,9 @@ router.post(
     failureFlash: true,
   }),
 );
+
+router.get('/profile', isLogedIn, (req, res) => {
+  res.render('user/profile');
+});
 
 module.exports = router;
