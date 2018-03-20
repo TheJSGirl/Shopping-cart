@@ -24,7 +24,14 @@ router.get('/', (req, res, next) => {
   res.render('shop/index', { title: 'Shopping Cart', products });
 });
 // });
-router.get('/user/signup', (req, res) => res.render('user/signup', { csrfToken: req.csrfToken() }));
+router.get('/user/signup', (req, res) => {
+  const messages = req.flash('error');
+  res.render('user/signup', {
+    csrfToken: req.csrfToken(),
+    messages,
+    hasErrors: messages.length > 0,
+  });
+});
 router.post(
   '/user/signup',
   passport.authenticate('local.signup', {
