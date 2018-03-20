@@ -14,6 +14,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
   res.render('user/profile');
 });
 
+router.get('/logout', isLoggedIn, (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 router.use('/', notLoggedIn, (req, res, next) => {
   next();
 });
@@ -51,10 +55,5 @@ router.post(
     failureFlash: true,
   }),
 );
-
-router.get('/logout', (req, res) => {
-  req.logOut();
-  res.redirect('/');
-});
 
 module.exports = router;
