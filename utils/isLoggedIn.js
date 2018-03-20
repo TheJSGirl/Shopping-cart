@@ -1,4 +1,4 @@
-function isLogedIn(req, res, next) {
+function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -6,5 +6,5 @@ function isLogedIn(req, res, next) {
 }
 
 module.exports = {
-  isLogedIn,
+  isLoggedIn,
 };

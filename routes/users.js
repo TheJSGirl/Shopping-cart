@@ -1,5 +1,6 @@
 const express = require('express');
-const { isLogedIn } = require('../utils/isLogedIn');
+const { isLoggedIn } = require('../utils/isLoggedIn');
+const { notLoggedIn } = require('../utils/notLoggedIn');
 
 const router = express.Router();
 const csrf = require('csurf');
@@ -9,6 +10,13 @@ const passport = require('passport');
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
+router.get('/profile', isLoggedIn, (req, res) => {
+  res.render('user/profile');
+});
+
+router.use('/', notLoggedIn, (req, res, next) => {
+  next();
+});
 router.get('/signup', (req, res) => {
   const messages = req.flash('error');
   res.render('user/signup', {
@@ -47,9 +55,6 @@ router.post(
 router.get('/logout', (req, res) => {
   req.logOut();
   res.redirect('/');
-});
-router.get('/profile', isLogedIn, (req, res) => {
-  res.render('user/profile');
 });
 
 module.exports = router;
