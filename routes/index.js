@@ -22,6 +22,9 @@ router.get('/', (req, res) => {
   const products = Product.find();
   res.render('shop/index', { title: 'Shopping Cart', products });
 });
-// });
+
+router.get('/add-to-cart/:id', (req, res) => {
+  const productId = req.params.id;
+});
 
 module.exports = router;
