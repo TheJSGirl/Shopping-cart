@@ -41,3 +41,28 @@ passport.use(
     },
   ),
 );
+
+passport.use(
+  'local.signin',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true,
+    },
+    (req, email, password, done) => {
+      User.findOne({ email }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, { message: 'user not found' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'wrong password' });
+        }
+        return done(null, user);
+      });
+    },
+  ),
+);

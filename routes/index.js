@@ -9,7 +9,7 @@ const csrfProtection = csrf();
 
 router.use(csrfProtection);
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   // Product.find((err, docs) =>
   //   // const productChunks = [];
   //   // const chunkSize = 3;
@@ -44,5 +44,23 @@ router.post(
 router.get('/user/profile', (req, res) => {
   res.render('user/profile');
 });
+
+router.get('/user/signin', (req, res) => {
+  const messages = req.flash('error');
+  res.render('user/signin', {
+    csrfToken: req.csrfToken(),
+    messages,
+    hasErrors: messages.length > 0,
+  });
+});
+
+router.post(
+  '/user/signin',
+  passport.authenticate('local.signin', {
+    successRedirect: '/user/profile',
+    failureRedirect: '/user/signin',
+    failureFlash: true,
+  }),
+);
 
 module.exports = router;
