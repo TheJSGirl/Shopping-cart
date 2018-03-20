@@ -44,6 +44,10 @@ router.post(
   }),
 );
 
+router.get('/logout', (req, res) => {
+  req.logOut();
+  res.redirect('/');
+});
 router.get('/profile', isLogedIn, (req, res) => {
   res.render('user/profile');
 });
