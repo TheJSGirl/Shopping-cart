@@ -14,13 +14,13 @@ const products = [
     imagePath: 'http://www.pngmart.com/files/2/Mario-Transparent-Background.png',
     title: 'Gothic',
     description: 'Awesome Game!!',
-    price: 10,
+    price: 20,
   }),
   new Product({
     imagePath: 'http://www.pngmart.com/files/2/Mario-Transparent-Background.png',
     title: 'Gothic',
     description: 'Awesome Game!!',
-    price: 10,
+    price: 30,
   }),
 ];
 let done = 0;
