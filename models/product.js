@@ -13,17 +13,14 @@ const ProductSchema = new Schema({
   },
   description: {
     type: String,
-    // required: true
+    required: true
   },
   price: {
     type: Number,
-    // required: true
+    required: true
   },
 });
 
 const product = mongoose.model('Product', ProductSchema);
-// product.insertMany({
-//   title: 'Google',
-//   imagePath: 'www.google.com',
-// });
+
 module.exports = product;
